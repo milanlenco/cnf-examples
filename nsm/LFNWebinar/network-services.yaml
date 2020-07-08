@@ -1,0 +1,30 @@
+---
+apiVersion: networkservicemesh.io/v1alpha1
+kind: NetworkService
+metadata:
+  name: cnf-nat-internal
+spec:
+  payload: IP
+  matches:
+    # connect clients from the local network to cnf-nat44
+    - match:
+      route:
+        - destination:
+          destinationSelector:
+            app: cnf-nat44
+
+---
+apiVersion: networkservicemesh.io/v1alpha1
+kind: NetworkService
+metadata:
+  name: cnf-nat-external
+spec:
+  payload: IP
+  matches:
+    # connect servers from the external network to cnf-nat44
+    - match:
+      route:
+        - destination:
+          destinationSelector:
+            app: cnf-nat44
+
